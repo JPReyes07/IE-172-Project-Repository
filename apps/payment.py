@@ -446,7 +446,8 @@ def load_ptt_dropdown(pathname):
             SELECT
                 (PTT_FM || ' ' ||PTT_LM) AS PTT_FULL_M,
                 PTT_ID
-            FROM patient      
+            FROM patient
+            WHERE PTT_DEL_IND = FALSE    
         '''
 
         values = []
