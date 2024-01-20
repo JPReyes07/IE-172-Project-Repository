@@ -17,6 +17,14 @@ Install the following:
 Use the ```[db] create table.sql``` (required) and ```[db] sample table.sql``` to readily generate sample data. Alternatively, you may create your own data directly from the application.
 
 ## Login Page
-As a prototype use the following:
+As a prototype use the following for the applications' login page:
  - Username: ```username```
  - Password: ```admin```
+
+## Sample Images
+
+![queue](sample/gyncare_queue.png)
+
+![consult](sample/gyncare_consultnote.png)
+
+![payment](sample/gyncare_payment.png)
