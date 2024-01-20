@@ -27,19 +27,19 @@ revenue_data = {'Service A': 5000, 'Service B': 3000, 'Service C': 2000}
 low_in_stock_items = {'Item X': 5, 'Item Y': 10, 'Item Z': 2}
 
 layout = html.Div([
-    # Row 1: Welcome Header
+    # WELCOME
     dbc.Row(
         dbc.Col(
             html.H1("Welcome!",
-                    style = {'font-weight': 'bold',
-                             'text-align':'center'},
-                    className = 'mt-3'
-                    ), 
+                    style={'font-weight': 'bold',
+                           'text-align': 'center'},
+                    className='mt-3'
+                    ),
         ),
         className='mb-4'
     ),
 
-    # Row 2: Breakdown of Service
+    # SERVICE BREAKDOWN
     dbc.Row(
         [
             dbc.Col(
@@ -47,11 +47,11 @@ layout = html.Div([
                     [
                         dbc.CardHeader(
                             "Completed Service",
-                            style = {'background-color': '#9FC3E7'}
+                            style={'background-color': '#9FC3E7'}
                         ),
                         dbc.CardBody([html.H1(id='completed-service-value',
-                                              style = {'font-weight': 'bold',
-                                                       'text-align':'center'}), html.P("Services completed.")]),
+                                              style={'font-weight': 'bold',
+                                                     'text-align': 'center'}), html.P("Services completed.")]),
                     ],
                     className='h-100'
                 ),
@@ -61,10 +61,10 @@ layout = html.Div([
                 dbc.Card(
                     [
                         dbc.CardHeader("Women's Wellness",
-                                       style = {'background-color': '#9FC3E7'}),
+                                       style={'background-color': '#9FC3E7'}),
                         dbc.CardBody([html.H4(id='wellness-checkup-value',
-                                              style = {'font-weight': 'bold',
-                                                       'text-align':'center'}), html.P("People in queue for wellness checkup.")]),
+                                              style={'font-weight': 'bold',
+                                                     'text-align': 'center'}), html.P("People in queue for wellness checkup.")]),
                     ],
                     className='h-100'
                 ),
@@ -74,10 +74,10 @@ layout = html.Div([
                 dbc.Card(
                     [
                         dbc.CardHeader("Preventive Medicine",
-                                       style = {'background-color': '#9FC3E7'}),
+                                       style={'background-color': '#9FC3E7'}),
                         dbc.CardBody([html.H4(id='prev-med-queue-value',
-                                              style = {'font-weight': 'bold',
-                                                       'text-align':'center'}), html.P("People in queue for preventive medicine.")]),
+                                              style={'font-weight': 'bold',
+                                                     'text-align': 'center'}), html.P("People in queue for preventive medicine.")]),
                     ],
                     className='h-100'
                 ),
@@ -87,10 +87,10 @@ layout = html.Div([
                 dbc.Card(
                     [
                         dbc.CardHeader("Prenatal Pregnancy",
-                                       style = {'background-color': '#9FC3E7'}),
+                                       style={'background-color': '#9FC3E7'}),
                         dbc.CardBody([html.H4(id='prenatal-queue-value',
-                                              style = {'font-weight': 'bold',
-                                                       'text-align':'center'}), html.P("People in queue for prenatal checkup.")]),
+                                              style={'font-weight': 'bold',
+                                                     'text-align': 'center'}), html.P("People in queue for prenatal checkup.")]),
                     ],
                     className='h-100'
                 ),
@@ -100,10 +100,10 @@ layout = html.Div([
                 dbc.Card(
                     [
                         dbc.CardHeader("Postnatal Pregnancy",
-                                       style = {'background-color': '#9FC3E7'}),
+                                       style={'background-color': '#9FC3E7'}),
                         dbc.CardBody([html.H4(id='postnatal-queue-value',
-                                              style = {'font-weight': 'bold',
-                                                       'text-align':'center'}), html.P("People in queue for postnatal checkup.")]),
+                                              style={'font-weight': 'bold',
+                                                     'text-align': 'center'}), html.P("People in queue for postnatal checkup.")]),
                     ],
                     className='h-100'
                 ),
@@ -113,20 +113,20 @@ layout = html.Div([
         className='align-items-stretch',  # Align cards to have equal height
     ),
 
-    # Row 3: Revenue Breakdown and Low in Stock Visibility
+    # REVENUE + LOW IN STOCK
     dbc.Row(
         [
-            # Left side: Revenue Summary
+            # REVENUE
             dbc.Col(
                 [
                     dbc.Card(
                         [
                             dbc.CardHeader(
                                 "Revenue This Month",
-                                style = {'background-color': '#9FC3E7'}),
+                                style={'background-color': '#9FC3E7'}),
                             dbc.CardBody(
                                 [
-                                    html.H3('', id='revenue-month'), 
+                                    html.H3('', id='revenue-month'),
                                     html.P("")
                                 ]
                             ),
@@ -135,30 +135,31 @@ layout = html.Div([
 
                     dbc.Card(
                         [
-                            html.Div(id = 'revenue-month-breakdown-donut')
+                            html.Div(id='revenue-month-breakdown-donut')
                         ]
                     ),
                 ],
-                
+
                 className='mb-4',
                 style={'font-family': 'Helvetica, sans-serif'},
             ),
 
+            # LOW IN STOCK
             dbc.Col(
                 [
                     dbc.Card(
                         [
                             dbc.CardHeader("Low in Stock",
-                                           style = {'background-color': '#9FC3E7'}),
+                                           style={'background-color': '#9FC3E7'}),
                             dbc.CardBody(
                                 [
-                                    html.Div(id = 'low-in-stock')
+                                    html.Div(id='low-in-stock')
                                 ]
                             ),
                         ]
                     ),
                 ],
-                
+
                 className='mb-4',
                 style={'font-family': 'Helvetica, sans-serif'},
             ),
@@ -182,7 +183,7 @@ def summarize_completed_service_today(pathname):
      SELECT 
         COUNT(*) 
     FROM patient_visit
-    WHERE DATE(visit_d_now) = CURRENT_DATE AND visit_q = 'COMPLETED';
+    WHERE DATE(visit_d_now) = CURRENT_DATE AND visit_q = 'COMPLETED' AND VISIT_DEL_IND = FALSE;
     '''
 
     values = []
@@ -191,6 +192,7 @@ def summarize_completed_service_today(pathname):
     df = db.querydatafromdatabase(sql, values, cols)
 
     return [df['service_count_all']]
+
 
 @app.callback(
     [
@@ -202,10 +204,13 @@ def summarize_completed_service_today(pathname):
 )
 def summarize_wellness_checkup_today(pathname):
     sql = '''
-     SELECT COUNT(*) FROM patient_visit
-	WHERE DATE(visit_d_now) = CURRENT_DATE
-		AND srvc_id = 1
-		AND visit_q <> 'COMPLETED';
+    SELECT 
+        COUNT(*) 
+    FROM patient_visit
+    WHERE DATE(visit_d_now) = CURRENT_DATE
+        AND srvc_id = 1
+        AND visit_q <> 'COMPLETED'
+        AND VISIT_DEL_IND = FALSE;
     '''
 
     values = []
@@ -226,11 +231,13 @@ def summarize_wellness_checkup_today(pathname):
 )
 def summarize_prev_med_queue_today(pathname):
     sql = '''
-     SELECT COUNT(*) FROM patient_visit
-	WHERE DATE(visit_d_now) = CURRENT_DATE
-		AND srvc_id = 2
-		AND visit_q <> 'COMPLETED';
-
+    SELECT 
+        COUNT(*) 
+    FROM patient_visit
+    WHERE DATE(visit_d_now) = CURRENT_DATE
+	AND srvc_id = 2
+	AND visit_q <> 'COMPLETED'
+        AND VISIT_DEL_IND = FALSE;
     '''
 
     values = []
@@ -251,10 +258,13 @@ def summarize_prev_med_queue_today(pathname):
 )
 def summarize_prenatal_queue_today(pathname):
     sql = '''
-     SELECT COUNT(*) FROM patient_visit
-	WHERE DATE(visit_d_now) = CURRENT_DATE
-		AND srvc_id = 3
-		AND visit_q <> 'COMPLETED';
+    SELECT 
+        COUNT(*) 
+    FROM patient_visit
+    WHERE DATE(visit_d_now) = CURRENT_DATE
+	AND srvc_id = 3
+	AND visit_q <> 'COMPLETED'
+        AND VISIT_DEL_IND = FALSE;
     '''
 
     values = []
@@ -275,10 +285,13 @@ def summarize_prenatal_queue_today(pathname):
 )
 def summarize_postnatal_queue_today(pathname):
     sql = '''
-     SELECT COUNT(*) FROM patient_visit
-	WHERE DATE(visit_d_now) = CURRENT_DATE
-		AND srvc_id = 4
-		AND visit_q <> 'COMPLETED';
+    SELECT 
+        COUNT(*) 
+    FROM patient_visit
+    WHERE DATE(visit_d_now) = CURRENT_DATE
+	AND srvc_id = 4
+	AND visit_q <> 'COMPLETED'
+        AND VISIT_DEL_IND = FALSE;
     '''
 
     values = []
@@ -287,7 +300,6 @@ def summarize_postnatal_queue_today(pathname):
     df = db.querydatafromdatabase(sql, values, cols)
 
     return [df['postnatal_queue_count']]
-
 
 
 @app.callback(
@@ -358,6 +370,7 @@ def summarize_monthly_revenue(pathname):
 
     amt = locale.currency(int(df['total_revenue_this_month']), grouping=True)
     return [amt]
+
 
 @app.callback(
     [
@@ -436,7 +449,8 @@ def break_monthly_revenue(pathname):
     explode = (0.05, 0.05, 0.05, 0.05)
 
     # Create a Pie chart using plotly.graph_objs
-    pie_chart = go.Figure(data=[go.Pie(labels=labels, values=sizes, hole=0.3, marker=dict(colors=colors, line=dict(color='#000000', width=2)), textinfo='label+percent', pull=explode)])
+    pie_chart = go.Figure(data=[go.Pie(labels=labels, values=sizes, hole=0.3, marker=dict(
+        colors=colors, line=dict(color='#000000', width=2)), textinfo='label+percent', pull=explode)])
 
     # Return the Pie chart as a Dash component
     return [dcc.Graph(figure=pie_chart)]
@@ -450,7 +464,7 @@ def break_monthly_revenue(pathname):
         Input('url', 'pathname')
     ]
 )
-def summarize_postnatal_queue_today(pathname):
+def summarize_stock(pathname):
     sql = '''
     WITH most_recent_refill AS (
         SELECT
@@ -506,18 +520,15 @@ def summarize_postnatal_queue_today(pathname):
 
     df = db.querydatafromdatabase(sql, values, cols)
     table = dbc.Table.from_dataframe(
-            df, 
-            striped=True, 
-            bordered=True, 
-            hover=True, 
-            size='sm',
-            style={
-                'font-family': 'Helvetica, sans-serif',
-                'text-align': 'center'
-            }
-        )
+        df,
+        striped=True,
+        bordered=True,
+        hover=True,
+        size='sm',
+        style={
+            'font-family': 'Helvetica, sans-serif',
+            'text-align': 'center'
+        }
+    )
 
     return [table]
-
-
-
