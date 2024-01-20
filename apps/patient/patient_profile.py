@@ -376,9 +376,7 @@ layout = html.Div(
                     [
                         dbc.Button(
                             'Save', id='save', className='ms-auto', n_clicks=0
-                        ),
-
-                        html.Div('Nothing happened!', id='save-status')
+                        )
                     ]
 
                 )
