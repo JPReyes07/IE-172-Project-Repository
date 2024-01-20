@@ -19,46 +19,51 @@ from app import app
 layout = html.Div(
     [
         dcc.Location(id='current-page', refresh=False),
+        
+        # NAME, EDIT PROFILE, ADD CONSULT
         html.Div(
             [
                 dbc.Row(
                     [
                         dbc.Col(
-                            html.H1('Name', id = 'patient-profile-name'),
-                            width = {'order': '1'}
+                            html.H1('Name', 
+                                    id='patient-profile-name'
+                            ),
+                            width={'order': '1'}
                         ),
 
                         dbc.Col(
                             dbc.Row(
                                 dbc.Button(
                                     'Edit Profile',
-                                    id = 'btn-edit-profile'
+                                    id='btn-edit-profile'
                                 ),
-                                justify = 'end',
+                                justify='end',
                             ),
-                            align = 'center',
-                            width = {'size': 3, 'order': 'last'},
-                            className="me-3"
+                            align='center',
+                            width={'size': 3, 'order': 'last'},
+                            className='me-3'
                         ),
 
                         dbc.Col(
                             dbc.Row(
                                 dbc.Button(
                                     'Create Note',
-                                    id = 'btn-create-note'
+                                    id='btn-create-note'
                                 ),
-                                justify = 'end',
+                                justify='end',
                             ),
-                            align = 'center',
-                            width = {'size': 3, 'order': 'last'}
+                            align='center',
+                            width={'size': 3, 'order': 'last'}
                         )
                     ],
                 ),
             ]
         ),
-                
+
         html.Hr(),
 
+        # PATIENT PROFILE TABLE
         html.Div(
             [
                 dbc.Card(
@@ -71,45 +76,75 @@ layout = html.Div(
                         dbc.CardBody(
                             html.P(
                                 [
-                                    'In case of emergency, please contact: ', 
+                                    'In case of emergency, please contact: ',
                                     html.Ul(
                                         [
-                                            html.Li('EMC_NAME', id = 'patient-profile-emc-who'),
-                                            html.Li('EMC_CTNB', id = 'patient-profile-emc-cn'),
-                                            html.Li('EMC_REL', id = 'patient-profile-emc-rel'),
-
+                                            html.Li(
+                                                'EMC_NAME', 
+                                                id='patient-profile-emc-who'
+                                            ),
+                                            
+                                            html.Li(
+                                                'EMC_CTNB', 
+                                                id='patient-profile-emc-cn'
+                                            ),
+                                            
+                                            html.Li(
+                                                'EMC_REL', 
+                                                id='patient-profile-emc-rel'
+                                            ),
                                         ]
                                     )
                                 ]
                             )
-                            
                         )
                     ]
                 ),
             ]
         ),
 
+        # CONSULT LOG TABLE
         html.Div(
-            'Visit history goes here!',
-            id = 'patient-profile-visit-history'
+            [
+                dbc.Alert(id='consult-log-alert', is_open=False),
+                
+                html.Div(
+                    'Visit history goes here!',
+                    id='patient-profile-visit-history'
+                )
+            ]
+            
         ),
-
 
         # CREATE_NOTE
         dbc.Modal(
             [
                 dbc.ModalHeader(
-                    dbc.ModalTitle('Consultation Note')
+                    [
+                        html.H2(
+                            'New Consultation Note',
+                            style={'font-family': 'Helvetica, sans-serif'}
+                        ),
+                        dbc.Button('✖',
+                                    id = 'exit',
+                                    style = {'text-align': 'right'}
+                        )
+                    ],
+                    close_button = False
                 ),
 
                 dbc.ModalBody(
                     html.Div(
                         [
+                            dbc.Alert(id='consult-note-alert', is_open=False),
+                            
                             # NAME, AGE, DATE
                             dbc.Row(
                                 [
                                     dbc.Col(
-                                        html.H2('Name', id = 'consult-note-name')
+                                        html.H2('Name', 
+                                                id='consult-note-name'
+                                        )
                                     ),
 
                                     dbc.Col(
@@ -118,7 +153,7 @@ layout = html.Div(
 
                                 ]
                             ),
-                            
+
                             # VITALS
                             dbc.Card(
                                 [
@@ -133,16 +168,22 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Weight (kg)', width = 6),
+                                                                            dbc.Label(
+                                                                                'Weight (kg)', 
+                                                                                width=6
+                                                                            ),
                                                                             dbc.Col(
                                                                                 dbc.Input(
-                                                                                    id = 'consult-note-weight',
-                                                                                    type = 'text',
-                                                                                    style={"width": 100}
+                                                                                    id='consult-note-weight',
+                                                                                    type='numeric',
+                                                                                    style={'width': 100,
+                                                                                            'background-color': '#E0E5E9',
+                                                                                            'font-family': 'Helvetica, sans-serif'
+                                                                                    }
                                                                                 ),
                                                                             )
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -153,16 +194,22 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Temperature (°C)', width = 6),
+                                                                            dbc.Label(
+                                                                                'Temperature (°C)', 
+                                                                                width=6
+                                                                            ),
                                                                             dbc.Col(
                                                                                 dbc.Input(
-                                                                                    id = 'consult-note-temp',
-                                                                                    type = 'text',
-                                                                                    style={"width": 100}
+                                                                                    id='consult-note-temp',
+                                                                                    type='numeric',
+                                                                                    style={'width': 100,
+                                                                                            'background-color': '#E0E5E9',
+                                                                                            'font-family': 'Helvetica, sans-serif'
+                                                                                    }
                                                                                 ),
                                                                             )
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -177,16 +224,22 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Systolic BP', width = 6),
+                                                                            dbc.Label(
+                                                                                'Systolic BP', 
+                                                                                width=6
+                                                                            ),
                                                                             dbc.Col(
                                                                                 dbc.Input(
-                                                                                    id = 'consult-note-BP-syst',
-                                                                                    type = 'text',
-                                                                                    style={"width": 100}
+                                                                                    id='consult-note-BP-syst',
+                                                                                    type='numeric',
+                                                                                    style={'width': 100,
+                                                                                            'background-color': '#E0E5E9',
+                                                                                            'font-family': 'Helvetica, sans-serif'
+                                                                                    }
                                                                                 ),
                                                                             )
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -197,16 +250,22 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Diastolic BP', width = 6),
+                                                                            dbc.Label(
+                                                                                'Diastolic BP', 
+                                                                                width=6
+                                                                            ),
                                                                             dbc.Col(
                                                                                 dbc.Input(
-                                                                                    id = 'consult-note-BP-dias',
-                                                                                    type = 'text',
-                                                                                    style={"width": 100}
+                                                                                    id='consult-note-BP-dias',
+                                                                                    type='numeric',
+                                                                                    style={'width': 100,
+                                                                                            'background-color': '#E0E5E9',
+                                                                                            'font-family': 'Helvetica, sans-serif'
+                                                                                    }
                                                                                 ),
                                                                             )
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -220,16 +279,22 @@ layout = html.Div(
                                                             dbc.Form(
                                                                 dbc.Row(
                                                                     [
-                                                                        dbc.Label('Heart Rate (bpm)', width = 3),
+                                                                        dbc.Label(
+                                                                            'Heart Rate (bpm)', 
+                                                                            width=3
+                                                                        ),
                                                                         dbc.Col(
                                                                             dbc.Input(
-                                                                                id = 'consult-note-hr',
-                                                                                type = 'text',
-                                                                                style={"width": 100}
+                                                                                id='consult-note-hr',
+                                                                                type='numeric',
+                                                                                style={'width': 100,
+                                                                                            'background-color': '#E0E5E9',
+                                                                                            'font-family': 'Helvetica, sans-serif'
+                                                                                    }
                                                                             ),
                                                                         )
                                                                     ],
-                                                                    className="mb-3"
+                                                                    className='mb-3'
                                                                 ),
                                                             )
                                                         )
@@ -254,21 +319,24 @@ layout = html.Div(
                                                             dbc.Form(
                                                                 dbc.Row(
                                                                     [
-                                                                        dbc.Label('Service Type', width = 3),
+                                                                        dbc.Label(
+                                                                            'Service Type', 
+                                                                            width=3
+                                                                        ),
                                                                         dbc.Col(
-                                                                        dcc.Dropdown(
-                                                                                id="consult-note-service",
+                                                                            dcc.Dropdown(
+                                                                                id='consult-note-service',
                                                                                 options=[
-                                                                                    {"label": "Wellness Check-up", "value": "1"},
-                                                                                    {"label": "Preventive Medicine", "value": "2"},
-                                                                                    {"label": "Prenatal Pregnancy Care", "value": "3"},
-                                                                                    {"label": "Postnatal Pregnancy Care", "value": "4"},
+                                                                                    {'label': 'Wellness Check-up', 'value': '1'},
+                                                                                    {'label': 'Preventive Medicine', 'value': '2'},
+                                                                                    {'label': 'Prenatal Pregnancy Care', 'value': '3'},
+                                                                                    {'label': 'Postnatal Pregnancy Care', 'value': '4'},
                                                                                 ],
-                                                                                style={"width": 400}
+                                                                                style={'width': 400}
                                                                             )
                                                                         )
                                                                     ],
-                                                                    className="mb-3"
+                                                                    className='mb-3'
                                                                 ),
                                                             )
                                                         )
@@ -281,14 +349,15 @@ layout = html.Div(
                                                             dbc.Form(
                                                                 dbc.Row(
                                                                     [
-                                                                        dbc.Label('Note', width = 3),
+                                                                        dbc.Label(
+                                                                            'Note', 
+                                                                            width=3
+                                                                        ),
                                                                         dbc.Col(
-                                                                            dbc.Textarea(
-                                                                                id = 'consult-note-diagnosis'
-                                                                            ),
+                                                                            dbc.Textarea(id='consult-note-diagnosis'),
                                                                         )
                                                                     ],
-                                                                    className="mb-3"
+                                                                    className='mb-3'
                                                                 ),
                                                             )
                                                         )
@@ -301,15 +370,15 @@ layout = html.Div(
                             )
                         ]
                     )
-                ),                        
+                ),
 
                 dbc.ModalFooter(
                     [
                         dbc.Button(
-                            "Close", id="close", className="ms-auto", n_clicks=0
+                            'Save', id='save', className='ms-auto', n_clicks=0
                         ),
 
-                        html.Div("Nothing's happened!", id='save-status')
+                        html.Div('Nothing happened!', id='save-status')
                     ]
 
                 )
@@ -317,8 +386,8 @@ layout = html.Div(
             ],
             style={'font-family': 'Helvetica, sans-serif'},
             size='lg',
-            id="create-note",
-            is_open=False,   
+            id='create-note',
+            is_open=False,
         ),
 
         # VIEW_NOTE
@@ -330,26 +399,28 @@ layout = html.Div(
 
                 dbc.ModalBody(
                     html.Div(
-                        [
+                        [   
                             # NAME, AGE, DATE
                             dbc.Row(
                                 [
                                     dbc.Col(
-                                        html.H2('Name', id = 'view-note-name'),
+                                        html.H2('Name', 
+                                                id='view-note-name'
+                                        ),
                                     ),
 
                                     dbc.Col(
                                         dbc.Row(
-                                            html.H4('Date', 
-                                                    id = 'view-note-date',
+                                            html.H4('Date',
+                                                    id='view-note-date',
                                                     style={'display': 'flex', 'justify-content': 'right'}),
                                         ),
                                     ),
 
                                 ],
-                                align = 'end'
+                                align='end'
                             ),
-                            
+
                             # VITALS
                             dbc.Card(
                                 [
@@ -364,12 +435,13 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Weight (kg)', width = 6),
-                                                                            dbc.Col(
-                                                                                id = 'view-note-weight'
-                                                                            )
+                                                                            dbc.Label(
+                                                                                'Weight (kg)', 
+                                                                                width=6
+                                                                            ),
+                                                                            dbc.Col(id='view-note-weight')
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -380,12 +452,13 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Temperature (°C)', width = 6),
-                                                                            dbc.Col(
-                                                                                id = 'view-note-temp'
-                                                                            )
+                                                                            dbc.Label(
+                                                                                'Temperature (°C)', 
+                                                                                width=6
+                                                                            ),
+                                                                            dbc.Col(id='view-note-temp')
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -400,12 +473,13 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Blood Pressure', width = 6),
-                                                                            dbc.Col(
-                                                                                id = 'view-note-bp'
-                                                                            )
+                                                                            dbc.Label(
+                                                                                'Blood Pressure', 
+                                                                                width=6
+                                                                            ),
+                                                                            dbc.Col(id='view-note-bp')
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -416,12 +490,13 @@ layout = html.Div(
                                                                 dbc.Form(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Label('Heart Rate (bpm)', width = 6),
-                                                                            dbc.Col(
-                                                                                id = 'view-note-hr'
-                                                                            )
+                                                                            dbc.Label(
+                                                                                'Heart Rate (bpm)', 
+                                                                                width=6
+                                                                            ),
+                                                                            dbc.Col(id='view-note-hr')
                                                                         ],
-                                                                        className="mb-3"
+                                                                        className='mb-3'
                                                                     ),
                                                                 )
                                                             )
@@ -447,12 +522,13 @@ layout = html.Div(
                                                             dbc.Form(
                                                                 dbc.Row(
                                                                     [
-                                                                        dbc.Label('Service Type', width = 3),
-                                                                        dbc.Col(
-                                                                            id = 'view-note-service'
-                                                                        )
+                                                                        dbc.Label(
+                                                                            'Service Type', 
+                                                                            width=3
+                                                                        ),
+                                                                        dbc.Col(id='view-note-service')
                                                                     ],
-                                                                    className="mb-3"
+                                                                    className='mb-3'
                                                                 ),
                                                             )
                                                         )
@@ -465,12 +541,13 @@ layout = html.Div(
                                                             dbc.Form(
                                                                 dbc.Row(
                                                                     [
-                                                                        dbc.Label('Note', width = 3),
-                                                                        dbc.Col(
-                                                                            id = 'view-note-diagnosis'
-                                                                        )
+                                                                        dbc.Label(
+                                                                            'Note', 
+                                                                            width=3
+                                                                        ),
+                                                                        dbc.Col(id='view-note-diagnosis')
                                                                     ],
-                                                                    className="mb-3"
+                                                                    className='mb-3'
                                                                 ),
                                                             )
                                                         )
@@ -483,17 +560,17 @@ layout = html.Div(
                             )
                         ]
                     )
-                ),                        
+                ),
             ],
             style={'font-family': 'Helvetica, sans-serif'},
             size='lg',
-            id = 'view-note',
-            is_open = False
+            id='view-note',
+            is_open=False
         )
     ],
-    id = 'visit-content', 
+    id='visit-content',
     style={'font-family': 'Helvetica, sans-serif'},
-    
+
 )
 
 '''LOAD PATIENT NAME'''
@@ -525,7 +602,7 @@ def load_name(pathname, search):
         df = db.querydatafromdatabase(sql, values, col)
 
         name = df['ptt_full_m'][0]
-        
+
         return [name, name]
     else:
         raise PreventUpdate
@@ -546,7 +623,7 @@ def load_name(pathname, search):
     ]
 )
 def load_details(pathname, search):
-    if pathname == '/patient/profile': 
+    if pathname == '/patient/profile':
         parsed = urlparse(search)
         ptt_id = parse_qs(parsed.query)['ptt_id'][0]
         sql = ''' 
@@ -560,16 +637,18 @@ def load_details(pathname, search):
                 PTT_EMC_CTNB
             FROM patient
                 WHERE  PTT_ID = %s
-        '''  
+        '''
 
         values = [ptt_id]
-        cols = ['Birthdate','Civil Status', 'Contact Number', 'Address', 'EMC_who', 'EMC_relation', 'EMC_ctnb' ]
+        cols = ['Birthdate', 'Civil Status', 'Contact Number',
+                'Address', 'EMC_who', 'EMC_relation', 'EMC_ctnb']
         df = db.querydatafromdatabase(sql, values, cols)
-        df_basic = df[['Birthdate','Civil Status', 'Contact Number', 'Address']].T
+        df_basic = df[['Birthdate', 'Civil Status',
+                       'Contact Number', 'Address']].T
         df_basic.reset_index(inplace=True)
         df_basic.columns = [' ', ' ']
         df_emc = df[['EMC_who', 'EMC_relation', 'EMC_ctnb']]
-        
+
         table = dbc.Table.from_dataframe(df_basic, striped=True, bordered=False,
                                          hover=True, size='sm')
 
@@ -601,27 +680,23 @@ def load_edit_mode(editbtn, search):
             href = f'/patient/registration?mode=edit&ptt_id={ptt_id}'
             return [href]
 
-
-
 '''LOAD BLANK CONSULT_NOTE FORM'''
 @app.callback(
     [
-        Output('create-note', 'is_open'),
+        Output('create-note', 'is_open', allow_duplicate=True),
     ],
     [
         Input('btn-create-note', 'n_clicks'),
     ],
-    [
-        State('url', 'search')
-    ]
+    prevent_initial_call=True
 )
-def load_consult_note(modalbtn, search):
+def load_consult_note(modalbtn):
     ctx = dash.callback_context
     if ctx.triggered:
         event_id = ctx.triggered[0]['prop_id'].split('.')[0]
         if event_id == 'btn-create-note' and modalbtn:
             modal_open = False
-            modal_open = True                   
+            modal_open = True
             return [modal_open]
         else:
             raise PreventUpdate
@@ -631,76 +706,110 @@ def load_consult_note(modalbtn, search):
 '''SAVE INPUTS'''
 @app.callback(
     [
-        Output('save-status', 'children'),
+        Output('consult-note-alert', 'is_open'),
+        Output('consult-note-alert', 'color'),
+        Output('consult-note-alert', 'children'),
+        
     ],
     [
-        Input('close', 'n_clicks'),
-        Input('consult-note-weight', 'value'), 
-        Input('consult-note-temp', 'value'), 
-        Input('consult-note-BP-syst', 'value'), 
+        Input('save', 'n_clicks'),
+        Input('consult-note-weight', 'value'),
+        Input('consult-note-temp', 'value'),
+        Input('consult-note-BP-syst', 'value'),
         Input('consult-note-BP-dias', 'value'),
-        Input('consult-note-hr', 'value'), 
-        Input('consult-note-service', 'value'), 
-        Input('consult-note-diagnosis', 'value'), 
+        Input('consult-note-hr', 'value'),
+        Input('consult-note-service', 'value'),
+        Input('consult-note-diagnosis', 'value'),
     ],
     [
         State('url', 'search')
     ]
 )
 def save_consult_note(modalbtn,
-                      weight, temp, BP_sys, BP_dia, hr,
-                      srvc, diagnosis,
+                      Weight, Temperature, Systolic_Blood_Pressure, Diastolic_Blood_Pressure, Heart_Rate,
+                      Service, Diagnosis,
                       search):
     ctx = dash.callback_context
     if ctx.triggered:
         event_id = ctx.triggered[0]['prop_id'].split('.')[0]
-        if event_id == 'close' and modalbtn:
-            modal_open = False
+        if event_id == 'save' and modalbtn:
+            alert_open = True
+            alert_color = 'success'
+            alert_text = 'Consult note saved!'
 
             parsed = urlparse(search)
             prev = parse_qs(parsed.query)['from'][0]
             ptt_id = parse_qs(parsed.query)['ptt_id'][0]
+            
+            required_fields = ['Weight', 'Temperature', 'Systolic_Blood_Pressure', 'Diastolic_Blood_Pressure', 'Heart_Rate', 
+                               'Service', 'Diagnosis']
+            
+            for field in required_fields:
+                if not locals().get(field):
+                    alert_open = True
+                    alert_color = 'danger'
+                    alert_text = f"{field.replace('_', ' ')} is required!"
+                    return [alert_open, alert_color, alert_text]
+            
+            else:
+                    
+                if prev == '/queue':
+                    sql = '''
+                    WITH get_visit_id AS(
+                        SELECT 
+                            MAX(VISIT_ID) AS VISIT_ID
+                        FROM patient_visit 
+                        WHERE PTT_ID = %s AND VISIT_DEL_IND = FALSE
+                    )
 
-            if prev == '/queue':
-                sql = """
-                WITH get_visit_id AS(
-                    SELECT 
-                        MAX(VISIT_ID) AS VISIT_ID
-                    FROM patient_visit 
-                    WHERE PTT_ID = %s AND VISIT_DEL_IND = FALSE
-                )
+                    UPDATE patient_visit
+                    SET 
+                        VISIT_D_NOW = %s, 
+                        VISIT_WGHT = %s,
+                        VISIT_TMP = %s,
+                        VISIT_BP_sys = %s,
+                        VISIT_BP_dia = %s,
+                        VISIT_HR = %s,
+                        SRVC_ID = %s,
+                        VISIT_DGNS = %s
+                    WHERE VISIT_ID = (SELECT VISIT_ID FROM get_visit_id) AND PTT_ID = %s
+                    '''
+                    values = [ptt_id, datetime.date().now(), Weight, Temperature, 
+                            Systolic_Blood_Pressure, Diastolic_Blood_Pressure, 
+                            Heart_Rate, Service, Diagnosis, ptt_id]
+                    db.modifydatabase(sql, values)
 
-                UPDATE patient_visit
-                SET 
-                    VISIT_D_NOW = %s, 
-                    VISIT_WGHT = %s,
-                    VISIT_TMP = %s,
-                    VISIT_BP_sys = %s,
-                    VISIT_BP_dia = %s,
-                    VISIT_HR = %s,
-                    SRVC_ID = %s,
-                    VISIT_DGNS = %s
-                WHERE VISIT_ID = (SELECT VISIT_ID FROM get_visit_id) AND PTT_ID = %s
-                """
-                values = [ptt_id, datetime.date().now(), weight, temp, BP_sys, BP_dia, hr, srvc, diagnosis, ptt_id]
-                db.modifydatabase(sql, values)
+                if prev == '/patient/records':
+                    sql = '''
+                    INSERT INTO patient_visit (VISIT_D_NOW, VISIT_HR, VISIT_BP_SYS, VISIT_BP_DIA, VISIT_WGHT, VISIT_TMP, VISIT_DGNS, SRVC_ID, PTT_ID, MDSC_ID)
+                    VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s, %s, 1);
+                    '''
+                    values = [datetime.now().date(), Heart_Rate, Systolic_Blood_Pressure, Diastolic_Blood_Pressure,
+                            Weight, Temperature,  Diagnosis, Service, ptt_id]
+                    db.modifydatabase(sql, values)
 
-            if prev == '/patient/records':
-                sql = """
-                INSERT INTO patient_visit (VISIT_D_NOW, VISIT_HR, VISIT_BP_SYS, VISIT_BP_DIA, VISIT_WGHT, VISIT_TMP, VISIT_DGNS, SRVC_ID, PTT_ID, MDSC_ID)
-                VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, 1);
-                """
-                values = [datetime.now().date(), hr, BP_sys, BP_dia, weight, temp, diagnosis, srvc, ptt_id]
-                db.modifydatabase(sql, values)
+                return [alert_open, alert_color, alert_text]
 
-            return ['Saved!']
-        
-        else:
-            raise PreventUpdate
-    else:
-        raise PreventUpdate
-
+'''REFRESH TO SHOW SAVE SUCCESS'''
+@app.callback(
+    [
+        Output('visit-content', 'children', allow_duplicate=True),
+        Output('create-note', 'is_open')
+    ],
+    [
+        Input('exit', 'n_clicks'),
+        Input('visit-content', 'children')
+    ],
+    prevent_initial_call=True
+)
+def save_profile_status(modalbtn, layout):
+    ctx = dash.callback_context
+    if ctx.triggered:
+        event_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        if event_id == 'exit' and modalbtn:
+            return [layout, False]
+            
 '''LOAD VISIT HISTORY'''
 @app.callback(
     [
@@ -731,7 +840,7 @@ def load_visit_history(pathname, search):
             WHERE (PTT_ID = %s AND pv.VISIT_D_NOW <= %s) AND pv.VISIT_DEL_IND = FALSE
         '''
         values = [ptt_id, datetime.now().date()]
-        cols = ['Date','Service', 'Diagnosis', 'Visit_ID', '    ', 'Remove']
+        cols = ['Date', 'Service', 'Diagnosis', 'Visit_ID', '    ', 'Remove']
         df = db.querydatafromdatabase(sql, values, cols)
 
         df['Diagnosis'] = df['Diagnosis'].str.slice(0, 30) + '...'
@@ -743,10 +852,10 @@ def load_visit_history(pathname, search):
                 view_buttons += [
                     html.Div(
                         dbc.Button('View Note',
-                                    n_clicks = 0,
-                                    id={'type': 'view-note', 'index': visit_id},
-                                    size='sm', color='primary', className='mx-auto'),
-                                    style={'text-align':'left'}
+                                   n_clicks=0,
+                                   id={'type': 'view-note', 'index': visit_id},
+                                   size='sm', color='primary', className='mx-auto'),
+                        style={'text-align': 'left'}
                     )
                 ]
 
@@ -755,24 +864,23 @@ def load_visit_history(pathname, search):
                         html.Div(
                             dbc.Button(
                                 '⨉',
-                                n_clicks = 0,
-                                id = {"type": "visitdel", "index": visit_id},
-                                color = 'danger'
-                        ),
-                    )
+                                n_clicks=0,
+                                id={'type': 'visitdel', 'index': visit_id},
+                                color='danger'
+                            ),
+                        )
                     )
                 ]
 
             df['    '] = view_buttons
             df['Remove'] = del_buttons
-            df = df[['Date','Service', 'Diagnosis', '    ', 'Remove']]
-
+            df = df[['Date', 'Service', 'Diagnosis', '    ', 'Remove']]
 
             table = dbc.Table.from_dataframe(
-                df, 
-                striped=True, 
-                bordered=True, 
-                hover=True, 
+                df,
+                striped=True,
+                bordered=True,
+                hover=True,
                 size='sm',
                 style={
                     'font-family': 'Helvetica, sans-serif',
@@ -790,12 +898,12 @@ def load_visit_history(pathname, search):
         Output('view-note', 'is_open'),
         Output('view-note-name', 'children'),
         Output('view-note-date', 'children'),
-        Output('view-note-weight', 'children'), 
-        Output('view-note-temp', 'children'), 
-        Output('view-note-bp', 'children'), 
-        Output('view-note-hr', 'children'), 
-        Output('view-note-service', 'children'), 
-        Output('view-note-diagnosis', 'children'), 
+        Output('view-note-weight', 'children'),
+        Output('view-note-temp', 'children'),
+        Output('view-note-bp', 'children'),
+        Output('view-note-hr', 'children'),
+        Output('view-note-service', 'children'),
+        Output('view-note-diagnosis', 'children'),
     ],
     [
         Input({'type': 'view-note', 'index': ALL}, 'n_clicks'),
@@ -809,7 +917,6 @@ def view_note(button_clicks, search):
     ptt_id = parse_qs(parsed.query)['ptt_id'][0]
 
     ctx = dash.callback_context
-    # ty = json.loads(ctx.triggered[0]['prop_id'].replace(".n_clicks",""))
     t = list(ctx.triggered_prop_ids.values())[0]
     changed_id = t['index']
 
@@ -834,28 +941,30 @@ def view_note(button_clicks, search):
             WHERE pt.PTT_ID = %s AND pv.VISIT_ID = %s
         '''
         values = [ptt_id, changed_id]
-        cols = ['ptt_full_m', 'visit_date', 'weight', 'temp', 'bp', 'hr', 'service', 'diagnosis']
+        cols = ['ptt_full_m', 'visit_date', 'weight',
+                'temp', 'bp', 'hr', 'service', 'diagnosis']
 
         df = db.querydatafromdatabase(sql, values, cols)
 
         modal_open = True
 
-        return [modal_open, df['ptt_full_m'], df['visit_date'], df['weight'], df['temp'], df['bp'], df['hr'], 
+        return [modal_open, df['ptt_full_m'], df['visit_date'], df['weight'], df['temp'], df['bp'], df['hr'],
                 df['service'], df['diagnosis']]
     else:
         raise PreventUpdate
 
+'''DELETE VISIT LOG'''
 @app.callback(
     [
         Output('visit-content', 'children')
     ],
     [
-        Input({"type": "visitdel", "index": ALL}, 'n_clicks'),
+        Input({'type': 'visitdel', 'index': ALL}, 'n_clicks'),
         Input('visit-content', 'children')
     ]
 )
 def del_visit(button_clicks, layout):
-     if sum(button_clicks) >= 1:
+    if sum(button_clicks) >= 1:
         ctx = dash.callback_context
         t = list(ctx.triggered_prop_ids.values())[0]
         changed_id = t['index']
@@ -870,4 +979,3 @@ def del_visit(button_clicks, layout):
         db.modifydatabase(sql, values)
 
         return [layout]
-

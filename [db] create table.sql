@@ -6,7 +6,7 @@ CREATE TABLE patient (
     PTT_ADDR_STRT varchar(128),
 	PTT_ADDR_BRGY varchar(128),
 	PTT_ADDR_PROV varchar(128),
-    PTT_CTNB integer,
+    PTT_CTNB varchar(11),
     PTT_CVST varchar(20),
 	PTT_EMC_M varchar(64),
 	PTT_EMC_RLN varchar(32),
@@ -63,8 +63,11 @@ CREATE TABLE payment (
 CREATE TABLE medicine (
     MED_ID serial NOT NULL,
     MED_M varchar(64),
+    MED_COST integer,
 	MED_COUNT integer, 
+    MED_ROP integer,
 	MED_MP integer,
+    MED_COUNT_LAST_UPD timestamp without time zone DEFAULT NOW(),
     MED_DEL_IND bool DEFAULT FALSE,
     PRIMARY KEY (MED_ID)
 );
@@ -72,6 +75,7 @@ CREATE TABLE medicine (
 CREATE TABLE medicine_payment (
 	MED_PYM_ID serial NOT NULL,
 	MED_PYM_Q integer,
+    MED_PYM_TIME timestamp without time zone DEFAULT NOW(),
     MED_PYM_DEL_IND bool DEFAULT FALSE,
     PYM_ID integer REFERENCES payment(PYM_ID),
 	MED_ID integer REFERENCES medicine(MED_ID), 

@@ -164,7 +164,7 @@ layout = html.Div([
             ),
 
         ],
-        className='align-items-stretch',  # Align cards to have equal height
+        className='align-items-stretch',
     ),
 ], style={'font-family': 'Helvetica, sans-serif'})
 
@@ -466,7 +466,10 @@ def summarize_postnatal_queue_today(pathname):
         SELECT
             m.MED_ID,
             mr.MED_COUNT,
-            (mr.MED_COUNT - COALESCE(SUM(mp.MED_PYM_Q), 0)) AS UPD_STOCK
+            CASE
+                WHEN (mr.MED_COUNT - COALESCE(SUM(mp.MED_PYM_Q), 0)) < 0 THEN 0
+                ELSE (mr.MED_COUNT - COALESCE(SUM(mp.MED_PYM_Q), 0))
+            END AS UPD_STOCK
         FROM medicine m
         LEFT JOIN medicine_payment mp
             ON m.MED_ID = mp.MED_ID AND mp.MED_PYM_TIME > (

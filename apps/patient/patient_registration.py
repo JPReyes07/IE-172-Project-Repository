@@ -576,6 +576,7 @@ layout = html.Div(
     ]
 )
 
+'''INDICATE EDIT MODE'''
 @app.callback(
         [
             Output('ptt-profile-toload', 'data')
@@ -598,6 +599,7 @@ def ptt_profile_upd_store(pathname, search):
     
     return [data]
 
+'''LOAD PROFILE DATA TO EDIT'''
 @app.callback(
         [
             Output('personalinfo-name-LN', 'value'),
@@ -665,6 +667,7 @@ def ptt_profile_upd_store(timestamp, data, search):
     else:
         raise PreventUpdate
 
+'''SAVE PROFILE TO ADD'''
 @app.callback(
     [
         Output('personalinfo-alert', 'color'),
@@ -717,6 +720,10 @@ def ptt_saveprofile(pathname,
                                'Contact_Number', 'Emergency_Contact', 'Emergency_Contact_Relationship', 'Emergency_Contact_Number',
                                'Medical_History']
             
+            Contact_Number = str(Contact_Number)
+            Emergency_Contact_Number = str(Emergency_Contact_Number)
+            
+            '''EMPTY ERROR VALIDATION'''
             for field in required_fields:
                 if not locals().get(field):
                     alert_open = True
@@ -724,8 +731,15 @@ def ptt_saveprofile(pathname,
                     alert_text = f"{field.replace('_', ' ')} is required!"
                     break
             
+            '''CONTACT NUMBER - LENGTH ERROR VALIDATION'''   
+            if (len(Contact_Number) != 11) or (len(Emergency_Contact_Number ) != 11):
+                alert_open = True
+                alert_color = 'danger'
+                alert_text = 'Invalid Contact Number'
+                
 
             else:
+                
                 parsed = urlparse(search)
                 mode = parse_qs(parsed.query)['mode'][0]
                 if mode == 'edit':

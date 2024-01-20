@@ -6,10 +6,10 @@ def getdblocation():
     db = psycopg2.connect(
         # Get your credentials from the pgadmin. More details below.
         host = 'localhost',
-        database = 'xxxxxxxxx',
+        database = 'mz_gynecare_db',
         user = 'postgres',
         port = 5432,
-        password = 'xxxxxxxx'
+        password = 'phillipreyes2002!'
     )
     # return the connection details
     return db
