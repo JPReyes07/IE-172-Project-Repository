@@ -10,7 +10,7 @@
 Install the following:
 1. dash: ```pip install dash```
 2. dash_bootstrap_components: ```pip install dash_bootstrap_components```
-3. dash_mantine_components: ```pip install dash_mantine_components```
+3. dash_mantine_components: ```pip install dash-mantine-components==0.13.0a3```
 4. matplotlib: ```pip install matplotlib```
 
 ## Database
