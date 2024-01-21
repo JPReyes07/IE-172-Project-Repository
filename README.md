@@ -6,6 +6,8 @@
 
 ## Purpose:
 
+GynCare is an information system designed to improve the efficiency of the operations at Martinez Memorial Hospital. It is a platform that allows stakeholders to manage patient information, medical records, and administrative tasks. Through digitization, the processes involved in accomplishing those duties are modernized, leading to more streamlined support activities.
+
 ## Libraries
 Install the following:
 1. dash: ```pip install dash```
